@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+.square {
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  border: 1px solid #000;
+}
