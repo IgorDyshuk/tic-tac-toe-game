@@ -2,14 +2,20 @@ import {useState} from "react";
 import {calculateWinner} from "../utils/CalculateWinner.js";
 import {Square} from "../components/Square.jsx";
 import Status from "../components/status.jsx";
+import Cross from "../components/cross.jsx";
+import Zero from "../components/zero.jsx";
 
 export default function Board() {
 
     const [xIsNext, setXIsNext] = useState(true);
     const [squares, setSquares] = useState(Array(9).fill(null));
 
+    const winner = calculateWinner(squares);
+    const winnerPlayer = winner ? winner[0] : null;
+    const winnerLine = winner ? winner[1] : [];
+
     function handleClick(i) {
-        if (squares[i] || calculateWinner(squares)) {
+        if (squares[i] ||winnerPlayer) {
             return
         }
 
@@ -19,26 +25,34 @@ export default function Board() {
         setXIsNext(!xIsNext);
     }
 
-    const winner = calculateWinner(squares);
 
     return (
-        <div className="flex justify-center items-center  h-screen  ">
-            <div className="flex flex-col justify-center items-center w-full h-full">
-                <Status winner={winner} xIsNext={xIsNext}/>
-                <div className="flex">
-                    <Square value={squares[0]} onSquareClick={() => handleClick(0)}/>
-                    <Square value={squares[1]} onSquareClick={() => handleClick(1)}/>
-                    <Square value={squares[2]} onSquareClick={() => handleClick(2)}/>
-                </div>
-                <div className="flex">
-                    <Square value={squares[3]} onSquareClick={() => handleClick(3)}/>
-                    <Square value={squares[4]} onSquareClick={() => handleClick(4)}/>
-                    <Square value={squares[5]} onSquareClick={() => handleClick(5)}/>
-                </div>
-                <div className="flex">
-                    <Square value={squares[6]} onSquareClick={() => handleClick(6)}/>
-                    <Square value={squares[7]} onSquareClick={() => handleClick(7)}/>
-                    <Square value={squares[8]} onSquareClick={() => handleClick(8)}/>
+        <div className="flex justify-center items-center h-screen">
+            <div className="flex flex-col justify-center items-center w-full h-full gap-4">
+                <Status winner={winnerPlayer} xIsNext={xIsNext}/>
+                <div className="flex flex-col gap-4">
+                    {Array(3).fill(null).map((_, row) => (
+                        <div key={row} className="flex gap-4">
+                            {Array(3).fill(null).map((_, col) => {
+                                const index = row * 3 + col;
+                                const isWinningSquare = winnerLine.includes(index);
+                                return (
+                                    <Square
+                                        key={index}
+                                        value={
+                                            squares[index] === "X"
+                                                ? <Cross />
+                                                : squares[index] === "O"
+                                                    ? <Zero />
+                                                    : null
+                                        }
+                                        onSquareClick={() => handleClick(index)}
+                                        isWinning={isWinningSquare}
+                                    />
+                                );
+                            })}
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
