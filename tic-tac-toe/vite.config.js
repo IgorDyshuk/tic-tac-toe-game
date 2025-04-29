@@ -6,4 +6,10 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   base: "/tic-tac-toe-game",
+  server: {
+    host: true,
+    allowedHosts: [
+      "partly-popular-airedale.ngrok-free.app"
+    ],
+  }
 });

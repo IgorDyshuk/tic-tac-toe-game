@@ -3,7 +3,7 @@ export function Square({value, onSquareClick, isWinning}) {
 
     return (
         <button
-            className={`square hover:cursor-pointer ${squareStyle}`}
+            className={`w-22 h-22 rounded-xl hover:cursor-pointer ${squareStyle} sm:w-25 sm:h-25`}
             onClick={onSquareClick}
         >
             {value}

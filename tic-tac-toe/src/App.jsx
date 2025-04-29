@@ -1,4 +1,5 @@
 import "./styles/App.css";
+import './index.css'
 import {HashRouter, Route, Routes} from "react-router-dom";
 import Board from "./pages/game-page.jsx";
 

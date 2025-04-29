@@ -15,7 +15,7 @@ export default function Board() {
     const winnerLine = winner ? winner[1] : [];
 
     function handleClick(i) {
-        if (squares[i] ||winnerPlayer) {
+        if (squares[i] || winnerPlayer) {
             return
         }
 
@@ -27,34 +27,34 @@ export default function Board() {
 
 
     return (
-        <div className="flex justify-center items-center h-screen">
-            <div className="flex flex-col justify-center items-center w-full h-full gap-4">
+        <>
+            <div className="flex items-center flex-col h-screen gap-6">
                 <Status winner={winnerPlayer} xIsNext={xIsNext}/>
-                <div className="flex flex-col gap-4">
-                    {Array(3).fill(null).map((_, row) => (
-                        <div key={row} className="flex gap-4">
-                            {Array(3).fill(null).map((_, col) => {
-                                const index = row * 3 + col;
-                                const isWinningSquare = winnerLine.includes(index);
-                                return (
-                                    <Square
-                                        key={index}
-                                        value={
-                                            squares[index] === "X"
-                                                ? <Cross />
-                                                : squares[index] === "O"
-                                                    ? <Zero />
-                                                    : null
-                                        }
-                                        onSquareClick={() => handleClick(index)}
-                                        isWinning={isWinningSquare}
-                                    />
-                                );
-                            })}
-                        </div>
-                    ))}
-                </div>
+                    <div className="flex flex-col gap-4">
+                        {Array(3).fill(null).map((_, row) => (
+                            <div key={row} className="flex gap-4">
+                                {Array(3).fill(null).map((_, col) => {
+                                    const index = row * 3 + col;
+                                    const isWinningSquare = winnerLine.includes(index);
+                                    return (
+                                        <Square
+                                            key={index}
+                                            value={
+                                                squares[index] === "X"
+                                                    ? <Cross/>
+                                                    : squares[index] === "O"
+                                                        ? <Zero/>
+                                                        : null
+                                            }
+                                            onSquareClick={() => handleClick(index)}
+                                            isWinning={isWinningSquare}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        ))}
+                    </div>
             </div>
-        </div>
+        </>
     );
 }
