@@ -4,6 +4,7 @@ import {Square} from "../components/Square.jsx";
 import Status from "../components/status.jsx";
 import Cross from "../components/cross.jsx";
 import Zero from "../components/zero.jsx";
+import Header from "../components/Header.jsx";
 
 export default function Board() {
 
@@ -28,32 +29,33 @@ export default function Board() {
 
     return (
         <>
-            <div className="flex items-center flex-col h-screen gap-6">
+            <Header/>
+            <div className="flex items-center flex-col  gap-6">
                 <Status winner={winnerPlayer} xIsNext={xIsNext}/>
-                    <div className="flex flex-col gap-4">
-                        {Array(3).fill(null).map((_, row) => (
-                            <div key={row} className="flex gap-4">
-                                {Array(3).fill(null).map((_, col) => {
-                                    const index = row * 3 + col;
-                                    const isWinningSquare = winnerLine.includes(index);
-                                    return (
-                                        <Square
-                                            key={index}
-                                            value={
-                                                squares[index] === "X"
-                                                    ? <Cross/>
-                                                    : squares[index] === "O"
-                                                        ? <Zero/>
-                                                        : null
-                                            }
-                                            onSquareClick={() => handleClick(index)}
-                                            isWinning={isWinningSquare}
-                                        />
-                                    );
-                                })}
-                            </div>
-                        ))}
-                    </div>
+                <div className="flex flex-col gap-4">
+                    {Array(3).fill(null).map((_, row) => (
+                        <div key={row} className="flex gap-4">
+                            {Array(3).fill(null).map((_, col) => {
+                                const index = row * 3 + col;
+                                const isWinningSquare = winnerLine.includes(index);
+                                return (
+                                    <Square
+                                        key={index}
+                                        value={
+                                            squares[index] === "X"
+                                                ? <Cross/>
+                                                : squares[index] === "O"
+                                                    ? <Zero/>
+                                                    : null
+                                        }
+                                        onSquareClick={() => handleClick(index)}
+                                        isWinning={isWinningSquare}
+                                    />
+                                );
+                            })}
+                        </div>
+                    ))}
+                </div>
             </div>
         </>
     );
