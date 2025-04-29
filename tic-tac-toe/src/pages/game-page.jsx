@@ -26,6 +26,10 @@ export default function Board() {
         setXIsNext(!xIsNext);
     }
 
+    function resetGame() {
+        setSquares(Array(9).fill(null));
+        setXIsNext(true);
+    }
 
     return (
         <>
@@ -57,6 +61,9 @@ export default function Board() {
                     ))}
                 </div>
             </div>
+            <button onClick={resetGame} className="bg-[#19152c] hover:bg-[#2a2342] text-white font-bold py-2 px-4 rounded-xl mt-6">
+                Reset Game
+            </button>
         </>
     );
 }
