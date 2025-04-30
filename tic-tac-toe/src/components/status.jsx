@@ -1,24 +1,28 @@
-export default function Status({winner, xIsNext}) {
-    const X = <span className={"text-[#1b92ed]"}> X</span>;
-    const O = <span className={"text-[#a437ff]"}> O</span>;
+import {Circle, X} from "lucide-react";
 
-    return (<div className={"pb-2 w-74 sm:w-83 h-[100px] bg-[#2a2342] rounded-lg flex flex-col"}>
-        <div className={"flex justify-between p-2 font-bold"}>
-            <span className={"text-[#1b92ed]"}>Player X:</span>
-            <span className={"text-[#a437ff]"}>Player O:</span>
+export default function Status({xWins, oWins}) {
+    return (<div className={"pb-2 w-74 sm:w-83 flex justify-around gap-4 text-[#090518]"}>
+
+        <div className={"flex flex-col justify-center items-center w-22 rounded-xl sm:w-25 bg-[#1b92ed] p-1"}>
+            <span className={"flex items-center"}>
+                <X size={20}/>
+                <span className={'text-sm'}></span>
+            </span>
+            <span className={"font-bold text-lg"}>{xWins}</span>
         </div>
-        <div className={"flex-1 flex justify-center items-start text-2xl font-bold text-white pt-2"}>
-            {winner ? (<span className={"flex gap-1 items-center"}>
-                Winner: {' '}
-                <span className={winner === "X" ? "text-[#1b92ed]" : "text-[#a437ff]"}>
-                    {winner}
-                </span>
-            </span>) : (
-                <span className={"flex gap-1 items-center"}>
-                    Next player: {' '}
-                    {xIsNext ? X : O}
-                </span>
-            )}
+
+        <div className={"flex flex-col justify-center items-center w-22 rounded-xl sm:w-25 bg-[#a8bfc9]"}>
+            Ties
+            <span className={"font-bold text-lg"}>0</span>
         </div>
+
+        <div className={"flex flex-col justify-center items-center w-22 rounded-xl sm:w-25 bg-[#a437ff] p-1"}>
+            <span className={"flex items-center gap-1 justify-center"}>
+                <Circle size={17} strokeWidth={3}/>
+                <span className={'text-sm'}></span>
+            </span>
+            <span className={"font-bold text-lg"}>{oWins}</span>
+        </div>
+
     </div>)
 }

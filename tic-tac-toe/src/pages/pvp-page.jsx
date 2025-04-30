@@ -1,15 +1,18 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {calculateWinner} from "../utils/CalculateWinner.js";
 import {Square} from "../components/Square.jsx";
 import Status from "../components/status.jsx";
 import Cross from "../components/cross.jsx";
 import Zero from "../components/zero.jsx";
 import Header from "../components/Header.jsx";
+import {useGameScores} from "../hooks/use-game-scores.js";
 
 export default function Board() {
 
     const [xIsNext, setXIsNext] = useState(true);
     const [squares, setSquares] = useState(Array(9).fill(null));
+
+    const {xWins, oWins, incrementXWins, incrementOWins} = useGameScores();
 
     const winner = calculateWinner(squares);
     const winnerPlayer = winner ? winner[0] : null;
@@ -31,11 +34,20 @@ export default function Board() {
         setXIsNext(true);
     }
 
+
+    useEffect(() => {
+        if (winnerPlayer === "X") {
+            incrementXWins()
+        } else if (winnerPlayer === "O") {
+            incrementOWins()
+        }
+    }, [winnerPlayer, incrementOWins, incrementXWins])
+
     return (
         <>
             <Header/>
+
             <div className="flex items-center flex-col  gap-6">
-                <Status winner={winnerPlayer} xIsNext={xIsNext}/>
                 <div className="flex flex-col gap-4">
                     {Array(3).fill(null).map((_, row) => (
                         <div key={row} className="flex gap-4">
@@ -60,7 +72,9 @@ export default function Board() {
                         </div>
                     ))}
                 </div>
+                <Status winner={winnerPlayer} xIsNext={xIsNext} xWins={xWins} oWins={oWins}/>
             </div>
+
             <button onClick={resetGame} className="bg-[#19152c] hover:bg-[#2a2342] text-white font-bold py-2 px-4 rounded-xl mt-6">
                 Reset Game
             </button>

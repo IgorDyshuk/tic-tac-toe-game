@@ -1,7 +1,7 @@
 import "./styles/App.css";
 import './index.css'
 import {HashRouter, Route, Routes} from "react-router-dom";
-import Board from "./pages/game-page.jsx";
+import Board from "./pages/pvp-page.jsx";
 
 
 export default function App() {
