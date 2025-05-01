@@ -1,18 +1,21 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
-export default function AdaptiveIcon({icon:Icon, strokeWidth, maxSize, minSize}) {
+export default function AdaptiveIcon({ icon: Icon, strokeWidth, maxSize, minSize }) {
     const [size, setSize] = useState(
         window.innerWidth > 600 ? maxSize : minSize
-    )
+    );
 
     useEffect(() => {
         function handleResize() {
-            setSize(window.innerWidth > 600 ? maxSize : minSize)
+            const newSize = window.innerWidth > 600 ? maxSize : minSize;
+            setSize(newSize);
         }
 
-        window.addEventListener("resize", handleResize)
-        return () => window.removeEventListener("resize", handleResize)
-    }, [maxSize, minSize])
+        handleResize();
 
-    return <Icon size={size} strokeWidth={strokeWidth}></Icon>
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, [maxSize, minSize]);
+
+    return <Icon size={size} strokeWidth={strokeWidth} />;
 }

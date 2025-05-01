@@ -44,10 +44,10 @@ export default function Board() {
     }, [winnerPlayer, incrementOWins, incrementXWins])
 
     return (
-        <>
-            <Header/>
-
+        <div className={"w-full h-screen flex items-center justify-center"}>
             <div className="flex items-center flex-col  gap-6">
+                <Header onClick={resetGame} XisNext={xIsNext} winner={winnerPlayer}/>
+
                 <div className="flex flex-col gap-4">
                     {Array(3).fill(null).map((_, row) => (
                         <div key={row} className="flex gap-4">
@@ -59,9 +59,9 @@ export default function Board() {
                                         key={index}
                                         value={
                                             squares[index] === "X"
-                                                ? <Cross/>
+                                                ? <Cross maxSize={85} minSize={75} strokeWidth={3}/>
                                                 : squares[index] === "O"
-                                                    ? <Zero/>
+                                                    ? <Zero maxSize={65} minSize={57} strokeWidth={4}/>
                                                     : null
                                         }
                                         onSquareClick={() => handleClick(index)}
@@ -74,10 +74,6 @@ export default function Board() {
                 </div>
                 <Status winner={winnerPlayer} xIsNext={xIsNext} xWins={xWins} oWins={oWins}/>
             </div>
-
-            <button onClick={resetGame} className="bg-[#19152c] hover:bg-[#2a2342] text-white font-bold py-2 px-4 rounded-xl mt-6">
-                Reset Game
-            </button>
-        </>
+        </div>
     );
 }
