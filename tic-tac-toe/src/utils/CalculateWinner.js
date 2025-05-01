@@ -16,5 +16,10 @@ export function calculateWinner(squares) {
             return [squares[a], lines[i]]
         }
     }
+
+    if (squares.every(square => square !== null)) {
+        return "draw"
+    }
+
     return null
 }

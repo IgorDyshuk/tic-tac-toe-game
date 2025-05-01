@@ -12,11 +12,11 @@ export default function Board() {
     const [xIsNext, setXIsNext] = useState(true);
     const [squares, setSquares] = useState(Array(9).fill(null));
 
-    const {xWins, oWins, incrementXWins, incrementOWins} = useGameScores();
+    const {xWins, oWins, draws, incrementXWins, incrementOWins, incrementDraws} = useGameScores();
 
     const winner = calculateWinner(squares);
-    const winnerPlayer = winner ? winner[0] : null;
-    const winnerLine = winner ? winner[1] : [];
+    const winnerPlayer = winner === "draw" ? "draw" : winner ? winner[0] : null;
+    const winnerLine = winner === "draw" ? [] : winner ? winner[1] : [];
 
     function handleClick(i) {
         if (squares[i] || winnerPlayer) {
@@ -40,8 +40,10 @@ export default function Board() {
             incrementXWins()
         } else if (winnerPlayer === "O") {
             incrementOWins()
+        } else if (winnerPlayer === "draw") {
+            incrementDraws()
         }
-    }, [winnerPlayer, incrementOWins, incrementXWins])
+    }, [winnerPlayer, incrementOWins, incrementXWins, incrementDraws])
 
     return (
         <div className={"w-full h-screen flex items-center justify-center"}>
@@ -72,7 +74,7 @@ export default function Board() {
                         </div>
                     ))}
                 </div>
-                <Status winner={winnerPlayer} xIsNext={xIsNext} xWins={xWins} oWins={oWins}/>
+                <Status winner={winnerPlayer} xWins={xWins} oWins={oWins} draws={draws}/>
             </div>
         </div>
     );
