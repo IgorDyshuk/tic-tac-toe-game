@@ -1,15 +1,17 @@
 import ResetButton from "./reset-button.jsx";
-import Cross from "./cross.jsx";
-import Zero from "./zero.jsx";
 import {X, Circle} from "lucide-react";
 import AdaptiveIcon from "../utils/adaptive-icon.jsx";
 
 export default function Header({onClick, XisNext, winner}) {
     return (
         <div className={"w-74 sm:w-83 flex justify-center items-center  relative"}>
-            <div className={"absolute left-0 flex"}>
-                <Cross maxSize={35} minSize={35} strokeWidth={3}/>
-                <Zero maxSize={25} minSize={25} strokeWidth={4}/>
+            <div className={"absolute left-0 flex items-center"}>
+                <span className={"text-[#1b92ed]"}>
+                    <AdaptiveIcon icon={X} maxSize={35} minSize={35} strokeWidth={3}/>
+                </span>
+                <span className={"text-[#a437ff]"}>
+                    <AdaptiveIcon icon={Circle} maxSize={25} minSize={25} strokeWidth={4}/>
+                </span>
             </div>
             <div
                 className={`w-22 h-8 sm:w-25 sm:h-9 py-2 rounded-xl bg-[#19152c] text-white font-bold flex items-center justify-center`}>

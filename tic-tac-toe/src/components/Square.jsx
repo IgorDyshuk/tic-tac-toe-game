@@ -1,5 +1,15 @@
-export function Square({value, onSquareClick, isWinning}) {
-    const squareStyle = isWinning ? "bg-[#2a2342]" : "bg-[#19152c]";
+export function Square({value, onSquareClick, isWinning, winnerPlayer}) {
+    const squareStyle = winnerPlayer === "draw" ?
+        "bg-[#2a2342] text-gray-500"
+        :
+        isWinning ?
+            winnerPlayer === "X" ?
+                "bg-[#1b92ed] text-[#090518]"
+                :
+                "bg-[#a437ff] text-[#090518]"
+            :
+            "bg-[#19152c]"
+
 
     return (
         <button

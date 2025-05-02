@@ -61,13 +61,14 @@ export default function Board() {
                                         key={index}
                                         value={
                                             squares[index] === "X"
-                                                ? <Cross maxSize={85} minSize={75} strokeWidth={3}/>
+                                                ? <Cross maxSize={88} minSize={80} strokeWidth={3} isWinning={isWinningSquare}/>
                                                 : squares[index] === "O"
-                                                    ? <Zero maxSize={65} minSize={57} strokeWidth={4}/>
+                                                    ? <Zero maxSize={65} minSize={59} strokeWidth={4} isWinning={isWinningSquare}/>
                                                     : null
                                         }
                                         onSquareClick={() => handleClick(index)}
                                         isWinning={isWinningSquare}
+                                        winnerPlayer={winnerPlayer}
                                     />
                                 );
                             })}
