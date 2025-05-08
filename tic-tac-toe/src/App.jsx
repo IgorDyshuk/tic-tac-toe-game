@@ -1,7 +1,8 @@
 import "./styles/App.css";
 import './index.css'
 import {HashRouter, Route, Routes} from "react-router-dom";
-import Board from "./pages/pvp-page.jsx";
+import PvpPage from "./pages/pvp-page.jsx";
+import MainPage from "./pages/main-page.jsx";
 
 
 export default function App() {
@@ -9,8 +10,8 @@ export default function App() {
         <>
             <HashRouter>
                 <Routes>
-                    <Route path="/" element={<Board/>}/>
-                    {/*<Route path="/" element={} />*/}
+                    <Route path="/" element={<MainPage/>}/>
+                    <Route path="/pvp-page/" element={<PvpPage/>}/>
                 </Routes>
             </HashRouter>
         </>

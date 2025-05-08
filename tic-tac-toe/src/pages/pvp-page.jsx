@@ -1,13 +1,11 @@
 import {useEffect, useState} from "react";
 import {calculateWinner} from "../utils/CalculateWinner.js";
-import {Square} from "../components/Square.jsx";
 import Status from "../components/status.jsx";
-import Cross from "../components/cross.jsx";
-import Zero from "../components/zero.jsx";
 import Header from "../components/Header.jsx";
 import {useGameScores} from "../hooks/use-game-scores.js";
+import GameGrid from "../components/game-grid.jsx";
 
-export default function Board() {
+export default function PvpPage() {
 
     const [xIsNext, setXIsNext] = useState(true);
     const [squares, setSquares] = useState(Array(9).fill(null));
@@ -45,36 +43,39 @@ export default function Board() {
         }
     }, [winnerPlayer, incrementOWins, incrementXWins, incrementDraws])
 
+    useEffect(() => {
+        const setVh = () => {
+            document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+        };
+
+        setVh();
+        window.addEventListener("resize", setVh);
+
+        return () => {
+            window.removeEventListener("resize", setVh);
+        };
+    }, []);
+
     return (
-        <div className={"w-full h-screen flex items-center justify-center"}>
+        <div
+            className={"app-container flex items-center justify-center text-white"}
+            style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "calc(var(--vh, 1vh) * 100)",
+            }}
+        >
             <div className="flex items-center flex-col  gap-6">
                 <Header onClick={resetGame} XisNext={xIsNext} winner={winnerPlayer}/>
 
-                <div className="flex flex-col gap-4">
-                    {Array(3).fill(null).map((_, row) => (
-                        <div key={row} className="flex gap-4">
-                            {Array(3).fill(null).map((_, col) => {
-                                const index = row * 3 + col;
-                                const isWinningSquare = winnerLine.includes(index);
-                                return (
-                                    <Square
-                                        key={index}
-                                        value={
-                                            squares[index] === "X"
-                                                ? <Cross maxSize={88} minSize={80} strokeWidth={3} isWinning={isWinningSquare}/>
-                                                : squares[index] === "O"
-                                                    ? <Zero maxSize={65} minSize={59} strokeWidth={4} isWinning={isWinningSquare}/>
-                                                    : null
-                                        }
-                                        onSquareClick={() => handleClick(index)}
-                                        isWinning={isWinningSquare}
-                                        winnerPlayer={winnerPlayer}
-                                    />
-                                );
-                            })}
-                        </div>
-                    ))}
-                </div>
+                <GameGrid
+                    squares={squares}
+                    handleClick={handleClick}
+                    winnerLine={winnerLine}
+                    winnerPlayer={winnerPlayer}
+                />
+
                 <Status winner={winnerPlayer} xWins={xWins} oWins={oWins} draws={draws}/>
             </div>
         </div>
