@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 
 export default function Header({onClick, XisNext, winner}) {
     return (
-        <div className={"w-74 sm:w-83 flex justify-center items-center  relative"}>
+        <div className={"w-80 sm:w-98 flex justify-center items-center  relative"}>
             <Link to={"/"} className={"absolute left-0 flex items-center"}>
                 <span className={"text-[#1b92ed]"}>
                     <AdaptiveIcon icon={X} maxSize={35} minSize={35} strokeWidth={3}/>
@@ -14,8 +14,9 @@ export default function Header({onClick, XisNext, winner}) {
                     <AdaptiveIcon icon={Circle} maxSize={25} minSize={25} strokeWidth={4}/>
                 </span>
             </Link>
+
             <div
-                className={`w-22 h-8 sm:w-25 sm:h-9 py-2 rounded-xl bg-[#19152c] text-white font-bold flex items-center justify-center`}>
+                className={`w-24 h-8 sm:w-30 sm:h-9 py-2 rounded-xl bg-[#19152c] text-white font-bold flex items-center justify-center`}>
                 <div className="flex items-center gap-1">
                     {winner === "draw" ? (
                         <div className="text-base leading-none">Draw</div>

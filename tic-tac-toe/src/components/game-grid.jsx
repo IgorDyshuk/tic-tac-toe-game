@@ -4,9 +4,9 @@ import Zero from "./zero.jsx";
 
 export default function GameGrid({winnerLine, squares, handleClick, winnerPlayer}) {
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 sm:gap-5">
             {Array(3).fill(null).map((_, row) => (
-                <div key={row} className="flex gap-4">
+                <div key={row} className="flex gap-4 sm:gap-5">
                     {Array(3).fill(null).map((_, col) => {
                         const index = row * 3 + col;
                         const isWinningSquare = winnerLine.includes(index);
@@ -15,9 +15,9 @@ export default function GameGrid({winnerLine, squares, handleClick, winnerPlayer
                                 key={index}
                                 value={
                                     squares[index] === "X"
-                                        ? <Cross maxSize={88} minSize={80} strokeWidth={3} isWinning={isWinningSquare}/>
+                                        ? <Cross maxSize={98} minSize={85} strokeWidth={3} isWinning={isWinningSquare}/>
                                         : squares[index] === "O"
-                                            ? <Zero maxSize={65} minSize={59} strokeWidth={4} isWinning={isWinningSquare}/>
+                                            ? <Zero maxSize={75} minSize={63} strokeWidth={4} isWinning={isWinningSquare}/>
                                             : null
                                 }
                                 onSquareClick={() => handleClick(index)}

@@ -66,7 +66,7 @@ export default function PvpPage() {
                 height: "calc(var(--vh, 1vh) * 100)",
             }}
         >
-            <div className="flex items-center flex-col  gap-6">
+            <div className="flex items-center flex-col gap-8 sm:gap-10">
                 <Header onClick={resetGame} XisNext={xIsNext} winner={winnerPlayer}/>
 
                 <GameGrid
