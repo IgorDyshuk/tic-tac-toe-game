@@ -4,6 +4,8 @@ import Status from "../components/status.jsx";
 import Header from "../components/Header.jsx";
 import {useGameScores} from "../hooks/use-game-scores.js";
 import GameGrid from "../components/game-grid.jsx";
+import GameResultModal from "../components/game-result-modal.jsx";
+// import GameResultModal from "../components/game-result-modal.jsx";
 
 export default function PvpPage() {
 
@@ -78,6 +80,13 @@ export default function PvpPage() {
 
                 <Status winner={winnerPlayer} xWins={xWins} oWins={oWins} draws={draws}/>
             </div>
+
+            {winnerPlayer && (
+                <GameResultModal
+                    winner={winnerPlayer}
+                    onRestart={resetGame}
+                />
+            )}
         </div>
     );
 }

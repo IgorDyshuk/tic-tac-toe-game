@@ -15,7 +15,7 @@ export default function GameGrid({winnerLine, squares, handleClick, winnerPlayer
                                 key={index}
                                 value={
                                     squares[index] === "X"
-                                        ? <Cross maxSize={98} minSize={85} strokeWidth={3} isWinning={isWinningSquare}/>
+                                        ? <Cross maxSize={102} minSize={85} strokeWidth={3} isWinning={isWinningSquare}/>
                                         : squares[index] === "O"
                                             ? <Zero maxSize={75} minSize={63} strokeWidth={4} isWinning={isWinningSquare}/>
                                             : null

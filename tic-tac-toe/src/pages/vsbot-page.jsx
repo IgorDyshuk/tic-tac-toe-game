@@ -6,6 +6,7 @@ import GameGrid from "../components/game-grid.jsx";
 import {getSmartBotMove} from "../utils/bot-moves.js";
 import {useLocation} from "react-router-dom";
 import {useBotScores} from "../hooks/use-bot-scores.js";
+import GameResultModal from "../components/game-result-modal.jsx";
 
 export default function VsBotPage() {
     const location = useLocation();
@@ -114,6 +115,15 @@ export default function VsBotPage() {
                     isPlayerX={isPlayerX}
                 />
             </div>
+
+            {winnerPlayer && (
+                <GameResultModal
+                    winner={winnerPlayer}
+                    botSymbol={botSymbol}
+                    playerSymbol={playerSymbol}
+                    onRestart={resetGame}
+                />
+            )}
         </div>
     );
 }
