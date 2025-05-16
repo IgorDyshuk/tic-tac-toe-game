@@ -20,6 +20,7 @@ export default function VsBotPage() {
     const [xIsNext, setXIsNext] = useState(true);
     const [squares, setSquares] = useState(Array(9).fill(null));
     const [roundNumber, setRoundNumber] = useState(0);
+    const [latestMove, setLatestMove] = useState(null);
 
     const winner = calculateWinner(squares);
     const winnerPlayer = winner === "draw" ? "draw" : winner ? winner[0] : null;
@@ -34,6 +35,7 @@ export default function VsBotPage() {
         nextSquares[i] = isPlayerX ? "X" : "O";
         setSquares(nextSquares);
         setXIsNext(!xIsNext);
+        setLatestMove(i);
     }
 
     useEffect(() => {
@@ -47,6 +49,7 @@ export default function VsBotPage() {
                     nextSquares[botIndex] = isPlayerX ? "O" : "X";
                     setSquares(nextSquares);
                     setXIsNext(!xIsNext);
+                    setLatestMove(botIndex);
                 }
             }, 500);
 
@@ -105,6 +108,7 @@ export default function VsBotPage() {
                     handleClick={handleClick}
                     winnerLine={winnerLine}
                     winnerPlayer={winnerPlayer}
+                    latestMove={latestMove}
                 />
 
                 <Status

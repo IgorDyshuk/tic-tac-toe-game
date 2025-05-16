@@ -8,9 +8,14 @@ export default function GameResultModal({winner, playerSymbol = null, botSymbol 
     const navigate = useNavigate();
 
     useEffect(() => {
-        const timer = setTimeout(() => setVisible(true), 700);
+        let timer = null
+        if (winner === "draw") {
+            timer = setTimeout(() => setVisible(true), 500);
+        } else {
+            timer = setTimeout(() => setVisible(true), 1200);
+        }
         return () => clearTimeout(timer);
-    }, []);
+    }, [winner]);
 
     const handleRestart = () => {
         setVisible(false);

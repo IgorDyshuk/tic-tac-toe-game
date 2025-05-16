@@ -5,12 +5,12 @@ import Header from "../components/Header.jsx";
 import {useGameScores} from "../hooks/use-game-scores.js";
 import GameGrid from "../components/game-grid.jsx";
 import GameResultModal from "../components/game-result-modal.jsx";
-// import GameResultModal from "../components/game-result-modal.jsx";
 
 export default function PvpPage() {
 
     const [xIsNext, setXIsNext] = useState(true);
     const [squares, setSquares] = useState(Array(9).fill(null));
+    const [latestMove, setLatestMove] = useState(null);
 
     const {xWins, oWins, draws, incrementXWins, incrementOWins, incrementDraws} = useGameScores();
 
@@ -27,6 +27,7 @@ export default function PvpPage() {
         nextSquares[i] = xIsNext ? "X" : "O"
         setSquares(nextSquares);
         setXIsNext(!xIsNext);
+        setLatestMove(i);
     }
 
     function resetGame() {
@@ -76,6 +77,7 @@ export default function PvpPage() {
                     handleClick={handleClick}
                     winnerLine={winnerLine}
                     winnerPlayer={winnerPlayer}
+                    latestMove={latestMove}
                 />
 
                 <Status winner={winnerPlayer} xWins={xWins} oWins={oWins} draws={draws}/>
