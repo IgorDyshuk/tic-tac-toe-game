@@ -11,6 +11,7 @@ export default function PvpPage() {
 
     const [xIsNext, setXIsNext] = useState(true);
     const [squares, setSquares] = useState(Array(9).fill(null));
+    const [roundNumber, setRoundNumber] = useState(0);
     const [latestMove, setLatestMove] = useState(null);
 
     const {xWins, oWins, draws, incrementXWins, incrementOWins, incrementDraws} = useGameScores();
@@ -31,11 +32,15 @@ export default function PvpPage() {
         setLatestMove(i);
     }
 
+    useEffect(() => {
+        const shouldXStart = roundNumber % 2 === 0;
+        setXIsNext(shouldXStart);
+    }, [roundNumber]);
+
     function resetGame() {
         setSquares(Array(9).fill(null));
-        setXIsNext(true);
+        setRoundNumber(prev => prev + 1);
     }
-
 
     useEffect(() => {
         if (winnerPlayer === "X") {

@@ -33,7 +33,7 @@ export default function VsBotPage() {
         }
 
         const nextSquares = squares.slice();
-        nextSquares[i] = isPlayerX ? "X" : "O";
+        nextSquares[i] = playerSymbol;
         setSquares(nextSquares);
         setXIsNext(!xIsNext);
         setLatestMove(i);
@@ -47,7 +47,7 @@ export default function VsBotPage() {
                 const botIndex = getSmartBotMove(squares, isPlayerX);
                 if (botIndex !== null) {
                     const nextSquares = squares.slice();
-                    nextSquares[botIndex] = isPlayerX ? "O" : "X";
+                    nextSquares[botIndex] = botSymbol;
                     setSquares(nextSquares);
                     setXIsNext(!xIsNext);
                     setLatestMove(botIndex);
@@ -56,7 +56,7 @@ export default function VsBotPage() {
 
             return () => clearTimeout(timer);
         }
-    }, [xIsNext, winnerPlayer, squares, isPlayerX]);
+    }, [xIsNext, winnerPlayer, squares, isPlayerX, botSymbol]);
 
     useEffect(() => {
         const shouldXStart = roundNumber % 2 === 0;
