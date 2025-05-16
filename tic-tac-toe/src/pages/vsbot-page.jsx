@@ -7,6 +7,7 @@ import {getSmartBotMove} from "../utils/bot-moves.js";
 import {useLocation} from "react-router-dom";
 import {useBotScores} from "../hooks/use-bot-scores.js";
 import GameResultModal from "../components/game-result-modal.jsx";
+import {motion} from "framer-motion";
 
 export default function VsBotPage() {
     const location = useLocation();
@@ -91,43 +92,55 @@ export default function VsBotPage() {
     }, []);
 
     return (
-        <div
-            className={"app-container flex items-center justify-center text-white"}
+        <motion.div
+            initial={{opacity: 0, y: 20}}
+            animate={{opacity: 1, y: 0}}
+            exit={{opacity: 0, y: -20}}
+            transition={{duration: 0.3}}
+            className="app-container flex items-center justify-center text-white"
             style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
                 height: "calc(var(--vh, 1vh) * 100)",
             }}
         >
-            <div className="flex items-center flex-col gap-8 sm:gap-10">
-                <Header onClick={resetGame} XisNext={xIsNext} winner={winnerPlayer}/>
+            <div
+                className={"app-container flex items-center justify-center text-white"}
+                style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: "calc(var(--vh, 1vh) * 100)",
+                }}
+            >
+                <div className="flex items-center flex-col gap-8 sm:gap-10">
+                    <Header onClick={resetGame} XisNext={xIsNext} winner={winnerPlayer}/>
 
-                <GameGrid
-                    squares={squares}
-                    handleClick={handleClick}
-                    winnerLine={winnerLine}
-                    winnerPlayer={winnerPlayer}
-                    latestMove={latestMove}
-                />
+                    <GameGrid
+                        squares={squares}
+                        handleClick={handleClick}
+                        winnerLine={winnerLine}
+                        winnerPlayer={winnerPlayer}
+                        latestMove={latestMove}
+                    />
 
-                <Status
-                    winner={winnerPlayer}
-                    xWins={isPlayerX ? playerWins : botWins}
-                    oWins={isPlayerX ? botWins : playerWins}
-                    draws={botDraws}
-                    isPlayerX={isPlayerX}
-                />
+                    <Status
+                        winner={winnerPlayer}
+                        xWins={isPlayerX ? playerWins : botWins}
+                        oWins={isPlayerX ? botWins : playerWins}
+                        draws={botDraws}
+                        isPlayerX={isPlayerX}
+                    />
+                </div>
+
+                {winnerPlayer && (
+                    <GameResultModal
+                        winner={winnerPlayer}
+                        botSymbol={botSymbol}
+                        playerSymbol={playerSymbol}
+                        onRestart={resetGame}
+                    />
+                )}
             </div>
+        </motion.div>
 
-            {winnerPlayer && (
-                <GameResultModal
-                    winner={winnerPlayer}
-                    botSymbol={botSymbol}
-                    playerSymbol={playerSymbol}
-                    onRestart={resetGame}
-                />
-            )}
-        </div>
     );
 }
