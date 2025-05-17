@@ -93,6 +93,7 @@ export default function PvpPage() {
                         winnerLine={winnerLine}
                         winnerPlayer={winnerPlayer}
                         latestMove={latestMove}
+                        xIsNext={xIsNext}
                     />
 
                     <Status winner={winnerPlayer} xWins={xWins} oWins={oWins} draws={draws}/>

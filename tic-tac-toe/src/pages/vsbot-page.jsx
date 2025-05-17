@@ -91,6 +91,8 @@ export default function VsBotPage() {
         };
     }, []);
 
+    const isBotTurn = xIsNext !== isPlayerX;
+
     return (
         <motion.div
             initial={{opacity: 0, y: 20}}
@@ -120,6 +122,8 @@ export default function VsBotPage() {
                         winnerLine={winnerLine}
                         winnerPlayer={winnerPlayer}
                         latestMove={latestMove}
+                        xIsNext={xIsNext}
+                        isBotTurn={isBotTurn}
                     />
 
                     <Status

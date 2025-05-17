@@ -3,7 +3,7 @@ import Cross from "./cross.jsx";
 import Zero from "./zero.jsx";
 import {useEffect, useState} from "react";
 
-export default function GameGrid({winnerLine, squares, handleClick, winnerPlayer, latestMove}) {
+export default function GameGrid({winnerLine, squares, handleClick, winnerPlayer, latestMove, xIsNext, isBotTurn}) {
     const [highlighted, setHighlighted] = useState([])
 
     useEffect(() => {
@@ -46,6 +46,8 @@ export default function GameGrid({winnerLine, squares, handleClick, winnerPlayer
                                 isWinning={isWinningSquare}
                                 winnerPlayer={winnerPlayer}
                                 latestMove={latestMove}
+                                xIsNext={xIsNext}
+                                isBotTurn={isBotTurn}
                             />
                         );
                     })}
