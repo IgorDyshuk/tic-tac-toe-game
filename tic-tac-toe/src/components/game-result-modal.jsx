@@ -29,7 +29,7 @@ export default function GameResultModal({winner, playerSymbol = null, botSymbol 
 
     let title = "";
     if (winner === "draw") {
-        title = "OH, that's just draw";
+        title = "Oh, that's just draw!";
     } else if (winner === playerSymbol) {
         title = "YOU WON!";
     } else if (winner === botSymbol) {
@@ -52,7 +52,7 @@ export default function GameResultModal({winner, playerSymbol = null, botSymbol 
             >
                 {winner === "draw" ? (
                         <h1 className={'flex justify-center items-center text-3xl sm:text-5xl font-bold mb-5 sm:mb-8 text-white'}>
-                            Oh, that's just draw!
+                            {title}
                         </h1>
                     ) :
                     (<>

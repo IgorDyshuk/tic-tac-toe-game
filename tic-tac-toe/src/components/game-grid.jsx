@@ -45,7 +45,6 @@ export default function GameGrid({winnerLine, squares, handleClick, winnerPlayer
                                 onSquareClick={() => handleClick(index)}
                                 isWinning={isWinningSquare}
                                 winnerPlayer={winnerPlayer}
-                                latestMove={latestMove}
                                 xIsNext={xIsNext}
                                 isBotTurn={isBotTurn}
                             />
