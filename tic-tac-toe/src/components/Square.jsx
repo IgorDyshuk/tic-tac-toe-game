@@ -1,8 +1,11 @@
 import HooverCross from "./hoover-cross.jsx";
 import HooverCircle from "./hoover-circle.jsx";
 import AdaptiveHooverIcon from "../utils/adaptive-hoover-icon.jsx";
+import {useInitialStore} from "../stores/game-store.js";
 
-export function Square({value, onSquareClick, isWinning, winnerPlayer, xIsNext, isBotTurn = false}) {
+export function Square({value, onSquareClick, isWinning, winnerPlayer, isBotTurn = false}) {
+    const {xIsNext} = useInitialStore();
+
     const squareStyle = winnerPlayer === "draw"
         ? "bg-[#2a2342] text-gray-500"
         : isWinning

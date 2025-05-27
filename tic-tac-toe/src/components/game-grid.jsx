@@ -2,8 +2,14 @@ import {Square} from "./Square.jsx";
 import Cross from "./cross.jsx";
 import Zero from "./zero.jsx";
 import {useEffect, useState} from "react";
+import {useInitialStore} from "../stores/game-store.js";
 
-export default function GameGrid({winnerLine, squares, handleClick, winnerPlayer, latestMove, xIsNext, isBotTurn}) {
+export default function GameGrid({winnerLine, handleClick, winnerPlayer, isBotTurn}) {
+    const {
+        squares,
+        latestMove,
+    } = useInitialStore()
+
     const [highlighted, setHighlighted] = useState([])
 
     useEffect(() => {
@@ -45,8 +51,7 @@ export default function GameGrid({winnerLine, squares, handleClick, winnerPlayer
                                 onSquareClick={() => handleClick(index)}
                                 isWinning={isWinningSquare}
                                 winnerPlayer={winnerPlayer}
-                                xIsNext={xIsNext}
-                                isBotTurn={isBotTurn}
+                                isBotTurn={isBotTurn} // this replace on zustand
                             />
                         );
                     })}

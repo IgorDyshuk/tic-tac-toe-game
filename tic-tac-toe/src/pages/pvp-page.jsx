@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {calculateWinner} from "../utils/CalculateWinner.js";
 import Status from "../components/status.jsx";
 import Header from "../components/Header.jsx";
@@ -6,13 +6,18 @@ import {useGameScores} from "../hooks/use-game-scores.js";
 import GameGrid from "../components/game-grid.jsx";
 import GameResultModal from "../components/game-result-modal.jsx";
 import {motion} from "framer-motion";
+import {useInitialStore} from "../stores/game-store.js";
 
 export default function PvpPage() {
 
-    const [xIsNext, setXIsNext] = useState(true);
-    const [squares, setSquares] = useState(Array(9).fill(null));
-    const [roundNumber, setRoundNumber] = useState(0);
-    const [latestMove, setLatestMove] = useState(null);
+    const {
+        xIsNext,
+        squares,
+        setXIsNext,
+        setSquares,
+        setLatestMove,
+        resetGame
+    } = useInitialStore()
 
     const {xWins, oWins, draws, incrementXWins, incrementOWins, incrementDraws} = useGameScores();
 
@@ -32,14 +37,8 @@ export default function PvpPage() {
         setLatestMove(i);
     }
 
-    useEffect(() => {
-        const shouldXStart = roundNumber % 2 === 0;
-        setXIsNext(shouldXStart);
-    }, [roundNumber]);
-
-    function resetGame() {
-        setSquares(Array(9).fill(null));
-        setRoundNumber(prev => prev + 1);
+    function handleReset() {
+        resetGame();
     }
 
     useEffect(() => {
@@ -85,15 +84,12 @@ export default function PvpPage() {
                 }}
             >
                 <div className="flex items-center flex-col gap-8 sm:gap-10">
-                    <Header onClick={resetGame} XisNext={xIsNext} winner={winnerPlayer}/>
+                    <Header onClick={handleReset} XisNext={xIsNext} winner={winnerPlayer}/>
 
                     <GameGrid
-                        squares={squares}
                         handleClick={handleClick}
                         winnerLine={winnerLine}
                         winnerPlayer={winnerPlayer}
-                        latestMove={latestMove}
-                        xIsNext={xIsNext}
                     />
 
                     <Status winner={winnerPlayer} xWins={xWins} oWins={oWins} draws={draws}/>
@@ -101,7 +97,7 @@ export default function PvpPage() {
 
                 {winnerPlayer && (<GameResultModal
                         winner={winnerPlayer}
-                        onRestart={resetGame}
+                        onRestart={handleReset}
                     />)}
             </div>
         </motion.div>
