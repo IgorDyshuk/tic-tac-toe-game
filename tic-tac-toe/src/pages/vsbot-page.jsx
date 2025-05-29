@@ -4,10 +4,10 @@ import Status from "../components/status.jsx";
 import Header from "../components/Header.jsx";
 import GameGrid from "../components/game-grid.jsx";
 import {getSmartBotMove} from "../utils/bot-moves.js";
-import {useBotScores} from "../hooks/use-bot-scores.js";
 import GameResultModal from "../components/game-result-modal.jsx";
 import {motion} from "framer-motion";
 import {useInitialStore} from "../stores/game-store.js";
+import {useBotStore} from "../stores/bot-store.js";
 
 export default function VsBotPage() {
     const {isPlayerX} = useInitialStore();
@@ -15,7 +15,7 @@ export default function VsBotPage() {
     const playerSymbol = isPlayerX ? "X" : "O";
     const botSymbol = isPlayerX ? "O" : "X";
 
-    const {botWins, playerWins, botDraws, incrementBotWins, incrementPLayerWins, incrementBotDraws} = useBotScores();
+    const {botWins, playerWins, botDraws, incrementBotWins, incrementPlayerWins, incrementBotDraws} = useBotStore();
 
     const {
         xIsNext,
@@ -72,13 +72,13 @@ export default function VsBotPage() {
 
     useEffect(() => {
         if (winnerPlayer === playerSymbol) {
-            incrementPLayerWins();
+            incrementPlayerWins();
         } else if (winnerPlayer === botSymbol) {
             incrementBotWins();
         } else if (winnerPlayer === "draw") {
             incrementBotDraws();
         }
-    }, [winnerPlayer, incrementPLayerWins, incrementBotWins, incrementBotDraws, botSymbol, playerSymbol]);
+    }, [winnerPlayer, incrementPlayerWins, incrementBotWins, incrementBotDraws, botSymbol, playerSymbol]);
 
     useEffect(() => {
         const setVh = () => {

@@ -17,7 +17,7 @@ export const useInitialStore = create()(
 
         resetGame: () => set((state) => {
             const newRound = state.roundNumber + 1;
-            return{
+            return {
                 squares: Array(9).fill(null),
                 roundNumber: newRound,
                 xIsNext: newRound % 2 === 0,

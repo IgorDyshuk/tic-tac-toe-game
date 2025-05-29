@@ -2,11 +2,11 @@ import {useEffect} from "react";
 import {calculateWinner} from "../utils/CalculateWinner.js";
 import Status from "../components/status.jsx";
 import Header from "../components/Header.jsx";
-import {useGameScores} from "../hooks/use-game-scores.js";
 import GameGrid from "../components/game-grid.jsx";
 import GameResultModal from "../components/game-result-modal.jsx";
 import {motion} from "framer-motion";
 import {useInitialStore} from "../stores/game-store.js";
+import {useVsStore} from "../stores/vs-store.js";
 
 export default function PvpPage() {
 
@@ -20,7 +20,7 @@ export default function PvpPage() {
         initNewGame,
     } = useInitialStore()
 
-    const {xWins, oWins, draws, incrementXWins, incrementOWins, incrementDraws} = useGameScores();
+    const {xWins, oWins, draws, incrementXWins, incrementOWins, incrementDraws} = useVsStore();
 
     const winner = calculateWinner(squares);
     const winnerPlayer = winner === "draw" ? "draw" : winner ? winner[0] : null;
