@@ -22,16 +22,20 @@ export default function VsBotPage() {
     const {
         xIsNext,
         squares,
-        latestMove,
         setXIsNext,
         setSquares,
         setLatestMove,
-        resetGame
+        resetGame,
+        initNewGame
     } = useInitialStore()
 
     const winner = calculateWinner(squares);
     const winnerPlayer = winner === "draw" ? "draw" : winner ? winner[0] : null;
     const winnerLine = winner === "draw" ? [] : winner ? winner[1] : [];
+
+    useEffect(() => {
+        initNewGame();
+    }, []);
 
     function handleClick(i) {
         if (squares[i] || winnerPlayer || xIsNext !== isPlayerX) {
@@ -62,7 +66,7 @@ export default function VsBotPage() {
 
             return () => clearTimeout(timer);
         }
-    }, [xIsNext, winnerPlayer, squares, isPlayerX, botSymbol]);
+    }, [xIsNext, winnerPlayer, squares, isPlayerX, botSymbol, setLatestMove, setSquares, setXIsNext]);
 
     function handleReset() {
        resetGame()

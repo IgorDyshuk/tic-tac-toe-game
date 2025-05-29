@@ -16,7 +16,8 @@ export default function PvpPage() {
         setXIsNext,
         setSquares,
         setLatestMove,
-        resetGame
+        resetGame,
+        initNewGame,
     } = useInitialStore()
 
     const {xWins, oWins, draws, incrementXWins, incrementOWins, incrementDraws} = useGameScores();
@@ -24,6 +25,10 @@ export default function PvpPage() {
     const winner = calculateWinner(squares);
     const winnerPlayer = winner === "draw" ? "draw" : winner ? winner[0] : null;
     const winnerLine = winner === "draw" ? [] : winner ? winner[1] : [];
+
+    useEffect(() => {
+        initNewGame();
+    }, []);
 
     function handleClick(i) {
         if (squares[i] || winnerPlayer) {

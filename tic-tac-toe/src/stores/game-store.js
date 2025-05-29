@@ -20,6 +20,14 @@ export const useInitialStore = create()(
                 latestMove: null,
             }
         }),
+
+        initNewGame: () =>
+            set(() => ({
+                squares: Array(9).fill(null),
+                xIsNext: true,
+                latestMove: null,
+                roundNumber: 0,
+            })),
     })
 )
 

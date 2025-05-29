@@ -13,22 +13,35 @@ export default function GameGrid({winnerLine, handleClick, winnerPlayer, isBotTu
     const [highlighted, setHighlighted] = useState([])
 
     useEffect(() => {
-        if (!winnerLine.length) return;
+        if (squares.every((sq) => sq === null)) {
+            setHighlighted([]);
+        }
+    }, [squares]);
+
+    useEffect(() => {
+        if (!winnerLine.length || latestMove === null) return;
 
         const startIndex = winnerLine.indexOf(latestMove);
         const ordered = [
             ...winnerLine.slice(startIndex),
             ...winnerLine.slice(0, startIndex),
-        ]
+        ];
+
+        const timeouts = [];
 
         ordered.forEach((index, i) => {
-            setTimeout(() => {
-                setHighlighted(prev => [...prev, index]);
-            }, i * 300)
-        })
+            const timeoutId = setTimeout(() => {
+                setHighlighted((prev) => [...prev, index]);
+            }, i * 300);
+            timeouts.push(timeoutId);
+        });
 
-        return () => setHighlighted([])
-    }, [winnerLine, latestMove])
+        return () => {
+            timeouts.forEach(clearTimeout);
+            setHighlighted([]);
+        };
+    }, [winnerLine, latestMove]);
+
 
     return (
         <div className="flex flex-col gap-4 sm:gap-5">
