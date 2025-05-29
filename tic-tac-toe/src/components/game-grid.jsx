@@ -4,7 +4,7 @@ import Zero from "./zero.jsx";
 import {useEffect, useState} from "react";
 import {useInitialStore} from "../stores/game-store.js";
 
-export default function GameGrid({winnerLine, handleClick, winnerPlayer, isBotTurn}) {
+export default function GameGrid({winnerLine, handleClick, winnerPlayer}) {
     const {
         squares,
         latestMove,
@@ -64,7 +64,6 @@ export default function GameGrid({winnerLine, handleClick, winnerPlayer, isBotTu
                                 onSquareClick={() => handleClick(index)}
                                 isWinning={isWinningSquare}
                                 winnerPlayer={winnerPlayer}
-                                isBotTurn={isBotTurn} // this replace on zustand
                             />
                         );
                     })}

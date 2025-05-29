@@ -1,11 +1,13 @@
 import {Link} from "react-router-dom";
 import AdaptiveIcon from "../utils/adaptive-icon.jsx";
 import {Circle, X} from "lucide-react";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {motion} from "framer-motion";
+import {useInitialStore} from "../stores/game-store.js";
 
 export default function MainPage() {
-    const [isPlayerX, setIsPlayerX] = useState(true);
+
+    const {isPlayerX, setIsPlayerX, setIsVsBot} = useInitialStore()
 
     const selectX = () => {
         setIsPlayerX(true);
@@ -104,11 +106,16 @@ export default function MainPage() {
                     </div>
 
                     <div className={"w-85 sm:w-120 flex gap-4 flex-col text-xl font-bold"}>
-                        <Link to={"/bot-page/"} state={{isPlayerX}}
-                              className={"bg-[#1b92ed] py-2 rounded-xl hover:cursor-pointer"}>
+                        <Link to={"/bot-page/"}
+                              className={"bg-[#1b92ed] py-2 rounded-xl hover:cursor-pointer"}
+                              onClick={() => setIsVsBot(true)}
+                        >
                             NEW GAME (VS CPU)
                         </Link>
-                        <Link to={"/pvp-page"} className={"bg-[#a437ff] py-2 rounded-xl hover:cursor-pointer"}>
+                        <Link to={"/pvp-page"}
+                              className={"bg-[#a437ff] py-2 rounded-xl hover:cursor-pointer"}
+                              onClick={() => setIsVsBot(false)}
+                        >
                             NEW GAME (PVP)
                         </Link>
                     </div>

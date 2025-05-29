@@ -3,8 +3,10 @@ import HooverCircle from "./hoover-circle.jsx";
 import AdaptiveHooverIcon from "../utils/adaptive-hoover-icon.jsx";
 import {useInitialStore} from "../stores/game-store.js";
 
-export function Square({value, onSquareClick, isWinning, winnerPlayer, isBotTurn = false}) {
-    const {xIsNext} = useInitialStore();
+export function Square({value, onSquareClick, isWinning, winnerPlayer}) {
+    const {xIsNext, isPlayerX, isVsBot} = useInitialStore();
+    const isBotTurn = isVsBot ? xIsNext !== isPlayerX : false;
+    const showHoverIcon = !isBotTurn;
 
     const squareStyle = winnerPlayer === "draw"
         ? "bg-[#2a2342] text-gray-500"
@@ -14,9 +16,11 @@ export function Square({value, onSquareClick, isWinning, winnerPlayer, isBotTurn
                 : "bg-[#a437ff] text-[#090518]"
             : "bg-[#19152c]";
 
-    const hoverIcon = xIsNext
-        ? <AdaptiveHooverIcon icon={HooverCross} maxSize={100} minSize={84}/>
-        : <AdaptiveHooverIcon icon={HooverCircle} maxSize={100} minSize={84}/>;
+    const hoverIcon = showHoverIcon
+        ? (xIsNext
+            ? <AdaptiveHooverIcon icon={HooverCross} maxSize={100} minSize={84}/>
+            : <AdaptiveHooverIcon icon={HooverCircle} maxSize={100} minSize={84}/>)
+        : null;
 
     return (
         <button

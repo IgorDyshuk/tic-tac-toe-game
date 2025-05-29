@@ -4,15 +4,13 @@ import Status from "../components/status.jsx";
 import Header from "../components/Header.jsx";
 import GameGrid from "../components/game-grid.jsx";
 import {getSmartBotMove} from "../utils/bot-moves.js";
-import {useLocation} from "react-router-dom";
 import {useBotScores} from "../hooks/use-bot-scores.js";
 import GameResultModal from "../components/game-result-modal.jsx";
 import {motion} from "framer-motion";
 import {useInitialStore} from "../stores/game-store.js";
 
 export default function VsBotPage() {
-    const location = useLocation();
-    const isPlayerX = location.state?.isPlayerX ?? true;
+    const {isPlayerX} = useInitialStore();
 
     const playerSymbol = isPlayerX ? "X" : "O";
     const botSymbol = isPlayerX ? "O" : "X";
@@ -95,7 +93,6 @@ export default function VsBotPage() {
         };
     }, []);
 
-    const isBotTurn = xIsNext !== isPlayerX;
 
     return (
         <motion.div
@@ -124,7 +121,6 @@ export default function VsBotPage() {
                         handleClick={handleClick}
                         winnerLine={winnerLine}
                         winnerPlayer={winnerPlayer}
-                        isBotTurn={isBotTurn}
                     />
 
                     <Status

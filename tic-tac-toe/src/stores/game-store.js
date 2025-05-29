@@ -6,10 +6,14 @@ export const useInitialStore = create()(
         squares: Array(9).fill(null),
         roundNumber: 0,
         latestMove: null,
+        isPlayerX: true,
+        isVsBot: false,
 
         setXIsNext: (value) => set({xIsNext: value}),
         setSquares: (squares) => set({squares}),
         setLatestMove: (index) => set({latestMove: index}),
+        setIsPlayerX: (value) => set({isPlayerX: value}),
+        setIsVsBot: (value) => set({isVsBot: value}),
 
         resetGame: () => set((state) => {
             const newRound = state.roundNumber + 1;
